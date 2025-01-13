@@ -246,9 +246,7 @@ app.get('/select', leetcode.selectProblem);
 //get list of problems
 app.get('/problems', leetcode.problems);
 
-//get 20 trending Discuss
-app.get('/trendingDiscuss', leetcode.trendingCategoryTopics);
-
+//get language stats
 app.get('/languageStats', leetcode.languageStats);
 
 // Construct options object on all user routes.
