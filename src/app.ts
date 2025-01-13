@@ -7,8 +7,6 @@ import apicache from 'apicache';
 import axios from 'axios';
 import {
   userContestRankingInfoQuery,
-  discussCommentsQuery,
-  discussTopicQuery,
   userProfileUserQuestionProgressV2Query,
   skillStatsQuery,
   getUserProfileQuery,
@@ -72,10 +70,9 @@ app.get('/', (_req, res) => {
       '/userProfile/:username',
       '/userProfileCalendar',
       '/userProfileUserQuestionProgressV2/:userSlug',
-      '/discussTopic/:topicId',
-      '/discussComments/:topicId',
       '/userContestRankingInfo/:username',
       '/officialSolution',
+      '/allData/:username'
     ],
   });
 });
@@ -174,26 +171,6 @@ app.get('/userProfileUserQuestionProgressV2/:userSlug', (req, res) => {
   handleRequest(res, userProfileUserQuestionProgressV2Query, { userSlug });
 });
 
-app.get('/discussTopic/:topicId', (req, res) => {
-  const topicId = parseInt(req.params.topicId);
-  handleRequest(res, discussTopicQuery, { topicId });
-});
-
-app.get('/discussComments/:topicId', (req, res) => {
-  const topicId = parseInt(req.params.topicId);
-  const {
-    orderBy = 'newest_to_oldest',
-    pageNo = 1,
-    numPerPage = 10,
-  } = req.query;
-  handleRequest(res, discussCommentsQuery, {
-    topicId,
-    orderBy,
-    pageNo,
-    numPerPage,
-  });
-});
-
 app.get('/userContestRankingInfo/:username', (req, res) => {
   const { username } = req.params;
   handleRequest(res, userContestRankingInfoQuery, { username });
@@ -232,5 +209,31 @@ app.get('/:username/contest/history', leetcode.userContestHistory);
 app.get('/:username/submission', leetcode.submission);
 app.get('/:username/acSubmission', leetcode.acSubmission);
 app.get('/:username/calendar', leetcode.calendar);
+
+//get all user data
+app.get('/allData/:username', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const userProfileData = await queryLeetCodeAPI(getUserProfileQuery, { username });
+    const skillStatsData = await queryLeetCodeAPI(skillStatsQuery, { username });
+    const userContestRankingInfoData = await queryLeetCodeAPI(userContestRankingInfoQuery, { username });
+    const userProfileCalendarData = await queryLeetCodeAPI(userProfileCalendarQuery, { username, year: new Date().getFullYear() });
+    const userProfileUserQuestionProgressV2Data = await queryLeetCodeAPI(userProfileUserQuestionProgressV2Query, { userSlug: username });
+
+    const formattedUserProfileData = formatData(userProfileData.data);
+
+    res.json({
+      userProfile: formattedUserProfileData,
+      skillStats: skillStatsData.data,
+      userContestRankingInfo: userContestRankingInfoData.data,
+      userProfileCalendar: userProfileCalendarData.data,
+      userProfileUserQuestionProgressV2: userProfileUserQuestionProgressV2Data.data,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 export default app;
