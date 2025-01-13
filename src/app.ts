@@ -1,7 +1,7 @@
 import express, { NextFunction, Response } from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import * as leetcode from './leetCode';
+import * as leetcode from '../src/leetcode';
 import { FetchUserDataRequest } from './types';
 import apicache from 'apicache';
 import axios from 'axios';
