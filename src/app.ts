@@ -57,64 +57,26 @@ async function queryLeetCodeAPI(query: string, variables: any) {
 
 app.get('/', (_req, res) => {
   res.json({
-    apiOverview:
-      'Welcome to the Alfa-Leetcode-API! Alfa-Leetcode-Api is a custom solution born out of the need for a well-documented and detailed LeetCode API. This project is designed to provide developers with endpoints that offer insights into a user"s profile, badges, solved questions, contest details, contest history, submissions, and also daily questions, selected problem, list of problems.',
-    apiEndpointsLink:
-      'https://github.com/alfaarghya/alfa-leetcode-api?tab=readme-ov-file#endpoints-',
-    routes: {
-      userDetails: {
-        description:
-          'Endpoints for retrieving detailed user profile information on Leetcode.',
-        Method: 'GET',
-        '/:username': 'Get your leetcodevis profile Details',
-        '/:username/badges': 'Get your badges',
-        '/:username/solved': 'Get total number of question you solved',
-        '/:username/contest': 'Get your contest details',
-        '/:username/contest/history': 'Get all contest history',
-        '/:username/submission': 'Get your last 20 submission',
-        '/:username/acSubmission': 'Get your last 20 accepted submission',
-        '/:username/calendar': 'Get your submission calendar',
-        '/userProfile/:username': 'Get full profile details in one call',
-        '/userProfileCalendar?username=yourname&year=2024':
-          'Get your calendar details with year',
-        '/languageStats?username=yourname': 'Get the language stats of a user',
-        '/userProfileUserQuestionProgressV2/:userSlug':
-          'Get your question progress',
-        '/skillStats/:username': 'Get your skill stats',
-      },
-      contest: {
-        description:
-          'Endpoints for retrieving contest ranking and performance data.',
-        Method: 'GET',
-        '/userContestRankingInfo/:username': 'Get user contest ranking info',
-      },
-      discussion: {
-        description: 'Endpoints for fetching discussion topics and comments.',
-        Method: 'GET',
-        '/trendingDiscuss?first=20': 'Get top 20 trending discussions',
-        '/discussTopic/:topicId': 'Get discussion topic',
-        '/discussComments/:topicId': 'Get discussion comments',
-      },
-      problems: {
-        description:
-          'Endpoints for fetching problem-related data, including lists, details, and solutions.',
-        Method: 'GET',
-        singleProblem: {
-          '/select?titleSlug=two-sum': 'Get selected Problem',
-          '/daily': 'Get daily Problem',
-          '/dailyQuestion': 'Get raw daily question',
-        },
-        problemList: {
-          '/problems': 'Get list of 20 problems',
-          '/problems?limit=50': 'Get list of some problems',
-          '/problems?tags=array+math': 'Get list problems on selected topics',
-          '/problems?tags=array+math+string&limit=5':
-            'Get list some problems on selected topics',
-          '/officialSolution?titleSlug=two-sum':
-            'Get official solution of selected problem',
-        },
-      },
-    },
+    logo: [
+    "██╗     ███████╗███████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗        ███████╗████████╗ █████╗ ████████╗███████╗",
+    "██║     ██╔════╝██╔════╝╚══██╔══╝██╔════╝██╔═══██╗██╔══██╗██╔════╝        ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝",
+    "██║     █████╗  █████╗     ██║   ██║     ██║   ██║██║  ██║█████╗          ███████╗   ██║   ███████║   ██║   ███████╗",
+    "██║     ██╔══╝  ██╔══╝     ██║   ██║     ██║   ██║██║  ██║██╔══╝          ╚════██║   ██║   ██╔══██║   ██║   ╚════██║",
+    "███████╗███████╗███████╗   ██║   ╚██████╗╚██████╔╝██████╔╝███████╗        ███████║   ██║   ██║  ██║   ██║   ███████║",
+    "╚══════╝╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝        ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝"],
+    message: 'Welcome to LeetCode API',
+    availableEndpoints: [
+      '/:username',
+      '/dailyQuestion',
+      '/skillStats/:username',
+      '/userProfile/:username',
+      '/userProfileCalendar',
+      '/userProfileUserQuestionProgressV2/:userSlug',
+      '/discussTopic/:topicId',
+      '/discussComments/:topicId',
+      '/userContestRankingInfo/:username',
+      '/officialSolution',
+    ],
   });
 });
 
