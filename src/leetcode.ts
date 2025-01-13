@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as gqlQueries from './GQLQueries';
+import * as gqlQueries from '../GQL_Queries';
 import * as formatUtils from '../utils';
 import * as controllers from '../controllers';
 import { TransformedUserDataRequest } from './types';

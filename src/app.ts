@@ -15,7 +15,7 @@ import {
   userProfileCalendarQuery,
   officialSolutionQuery,
   dailyQeustion,
-} from './GQLQueries/newQueries';
+} from '../GQL_Queries/newQueries';
 
 const app = express();
 let cache = apicache.middleware;
