@@ -1,4 +1,4 @@
-import { UserData } from '../types';
+import { UserData } from '../src/types';
 
 export const formatUserData = (data: UserData) => ({
   username: data.matchedUser.username,

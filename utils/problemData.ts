@@ -2,7 +2,7 @@ import {
   DailyProblemData,
   ProblemSetQuestionListData,
   SelectProblemData,
-} from '../types';
+} from '../src/types';
 
 export const formatDailyData = (data: DailyProblemData) => ({
   questionLink:
