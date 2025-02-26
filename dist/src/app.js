@@ -38,7 +38,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const leetcode = __importStar(require("../src/leetcode"));
 const apicache_1 = __importDefault(require("apicache"));
 const axios_1 = __importDefault(require("axios"));
@@ -46,16 +45,8 @@ const newQueries_1 = require("../GQL_Queries/newQueries");
 const app = (0, express_1.default)();
 let cache = apicache_1.default.middleware;
 const API_URL = process.env.LEETCODE_API_URL || 'https://leetcode.com/graphql';
-const limiter = (0, express_rate_limit_1.default)({
-    windowMs: 60 * 60 * 1000,
-    limit: 60,
-    standardHeaders: 'draft-7',
-    legacyHeaders: false,
-    message: 'Too many request from this IP, try again in 1 hour',
-});
 app.use(cache('5 minutes'));
 app.use((0, cors_1.default)());
-app.use(limiter);
 app.use((req, _res, next) => {
     console.log('Requested URL:', req.originalUrl);
     next();
