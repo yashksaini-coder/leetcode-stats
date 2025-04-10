@@ -46,6 +46,7 @@ const newQueries_1 = require("../GQL_Queries/newQueries");
 const app = (0, express_1.default)();
 let cache = apicache_1.default.middleware;
 const API_URL = process.env.LEETCODE_API_URL || 'https://leetcode.com/graphql';
+console.log('🔄 Server is running with hot-reloading enabled');
 app.use(cache('5 minutes'));
 app.use((0, cors_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../template')));
