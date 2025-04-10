@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Curl ping to keep server alive
         run: |
-          curl -X GET https://your-server.com/keep-alive-endpoint || echo "Server ping failed"
+          curl -X GET ${{secrets.BACKEND_URL}} || echo "Server ping failed"
