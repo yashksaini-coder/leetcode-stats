@@ -41,12 +41,14 @@ const cors_1 = __importDefault(require("cors"));
 const leetcode = __importStar(require("../src/leetcode"));
 const apicache_1 = __importDefault(require("apicache"));
 const axios_1 = __importDefault(require("axios"));
+const path_1 = __importDefault(require("path"));
 const newQueries_1 = require("../GQL_Queries/newQueries");
 const app = (0, express_1.default)();
 let cache = apicache_1.default.middleware;
 const API_URL = process.env.LEETCODE_API_URL || 'https://leetcode.com/graphql';
 app.use(cache('5 minutes'));
 app.use((0, cors_1.default)());
+app.use(express_1.default.static(path_1.default.join(__dirname, '../template')));
 app.use((req, _res, next) => {
     console.log('Requested URL:', req.originalUrl);
     next();
@@ -72,28 +74,7 @@ async function queryLeetCodeAPI(query, variables) {
     }
 }
 app.get('/', (_req, res) => {
-    res.json({
-        logo: [
-            "██╗     ███████╗███████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗        ███████╗████████╗ █████╗ ████████╗███████╗",
-            "██║     ██╔════╝██╔════╝╚══██╔══╝██╔════╝██╔═══██╗██╔══██╗██╔════╝        ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝",
-            "██║     █████╗  █████╗     ██║   ██║     ██║   ██║██║  ██║█████╗          ███████╗   ██║   ███████║   ██║   ███████╗",
-            "██║     ██╔══╝  ██╔══╝     ██║   ██║     ██║   ██║██║  ██║██╔══╝          ╚════██║   ██║   ██╔══██║   ██║   ╚════██║",
-            "███████╗███████╗███████╗   ██║   ╚██████╗╚██████╔╝██████╔╝███████╗        ███████║   ██║   ██║  ██║   ██║   ███████║",
-            "╚══════╝╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝        ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝"
-        ],
-        message: 'Welcome to LeetCode API',
-        availableEndpoints: [
-            '/:username',
-            '/dailyQuestion',
-            '/skillStats/:username',
-            '/userProfile/:username',
-            '/userProfileCalendar',
-            '/userProfileUserQuestionProgressV2/:userSlug',
-            '/userContestRankingInfo/:username',
-            '/officialSolution',
-            '/allData/:username'
-        ],
-    });
+    res.sendFile(path_1.default.join(__dirname, '../template/base.html'));
 });
 app.get('/officialSolution', async (req, res) => {
     const { titleSlug } = req.query;

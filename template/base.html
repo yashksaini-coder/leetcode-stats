@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LeetCode Stats API</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+      :root {
+        --bg-color: #0a0e17;
+        --text-color: #5cdbd3;
+        --accent-color: #ff7875;
+        --secondary-color: #85a5ff;
+        --highlight-color: #ffd666;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Courier New", monospace;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .terminal {
+        max-width: 1000px;
+        margin: 0 auto;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+        padding: 1.5rem;
+        box-shadow: 0 0 20px rgba(255, 120, 117, 0.2);
+        overflow: auto;
+      }
+
+      .terminal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--accent-color);
+      }
+
+      .title {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+      }
+
+      .controls span {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-left: 5px;
+      }
+
+      .controls span:nth-child(1) {
+        background-color: #ff7875;
+      }
+
+      .controls span:nth-child(2) {
+        background-color: #ffd666;
+      }
+
+      .controls span:nth-child(3) {
+        background-color: #5cdbd3;
+      }
+
+      .terminal-body {
+        font-size: 0.8rem;
+      }
+
+      pre {
+        color: var(--accent-color);
+        margin-bottom: 1.5rem;
+        white-space: pre;
+        overflow-x: auto;
+        font-size: 0.6rem;
+        text-align: center;
+        line-height: 1.2;
+        display: flex;
+        justify-content: center;
+      }
+
+      .ascii-container {
+        display: inline-block;
+        text-align: left;
+      }
+
+      .prompt {
+        color: var(--highlight-color);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .endpoint {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .endpoint::before {
+        content: ">";
+        position: absolute;
+        left: 0;
+        color: var(--secondary-color);
+      }
+
+      .endpoint a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .endpoint a:hover {
+        color: var(--highlight-color);
+        text-decoration: underline;
+      }
+
+      .terminal-footer {
+        margin-top: 2rem;
+        text-align: center;
+        color: var(--secondary-color);
+        font-size: 0.8rem;
+        border-top: 1px solid var(--accent-color);
+        padding-top: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+        pre {
+          font-size: 0.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="title">LEETCODE-STATS-SERVER</div>
+        <div class="controls">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="ascii-container">
+          <pre>
+  ██╗     ███████╗███████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗    ███████╗████████╗ █████╗ ████████╗███████╗
+  ██║     ██╔════╝██╔════╝╚══██╔══╝██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
+  ██║     █████╗  █████╗     ██║   ██║     ██║   ██║██║  ██║█████╗      ███████╗   ██║   ███████║   ██║   ███████╗
+  ██║     ██╔══╝  ██╔══╝     ██║   ██║     ██║   ██║██║  ██║██╔══╝      ╚════██║   ██║   ██╔══██║   ██║   ╚════██║
+  ███████╗███████╗███████╗   ██║   ╚██████╗╚██████╔╝██████╔╝███████╗    ███████║   ██║   ██║  ██║   ██║   ███████║
+  ╚══════╝╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝</pre>
+        </div>
+        <p class="prompt">$ LeetCode Stats Server</p>
+        <p>
+          The objective is to provide a clean and proper structure of all API
+          endpoints and how they operate using query params.
+        </p>
+        <p>The API endpoints will be shown with proper request methods:</p>
+
+        <div class="endpoint">
+          <a href="/yashksaini" target="_blank">/:username</a>
+        </div>
+        <div class="endpoint">
+          <a href="/dailyQuestion" target="_blank">/dailyQuestion</a>
+        </div>
+        <div class="endpoint">
+          <a href="/skillStats/yashksaini" target="_blank">/skillStats/:username</a>
+        </div>
+        <div class="endpoint">
+          <a href="/userProfile/yashksaini" target="_blank">/userProfile/:username</a>
+        </div>
+        <div class="endpoint">
+          <a href="/userProfileCalendar?username=yashksaini&year=2023" target="_blank">/userProfileCalendar</a>
+        </div>
+        <div class="endpoint">
+          <a href="/userProfileUserQuestionProgressV2/yashksaini" target="_blank">/userProfileUserQuestionProgressV2/:userSlug</a>
+        </div>
+        <div class="endpoint">
+          <a href="/userContestRankingInfo/yashksaini" target="_blank">/userContestRankingInfo/:username</a>
+        </div>
+        <div class="endpoint">
+          <a href="/officialSolution?titleSlug=two-sum" target="_blank">/officialSolution</a>
+        </div>
+        <div class="endpoint">
+          <a href="/allData/yashksaini" target="_blank">/allData/:username</a>
+        </div>
+        <div class="endpoint">
+          <a href="/daily" target="_blank">/daily</a>
+        </div>
+        <div class="endpoint">
+          <a href="/select" target="_blank">/select</a>
+        </div>
+        <div class="endpoint">
+          <a href="/problems" target="_blank">/problems</a>
+        </div>
+        <div class="endpoint">
+          <a href="/languageStats" target="_blank">/languageStats</a>
+        </div>
+      </div>
+      <div class="terminal-footer">
+        [ SYSTEM ] © 2025 LeetCode Stats Server Terminal v1.0.4 | All Rights
+        Reserved
+      </div>
+    </div>
+  </body>
+</html>

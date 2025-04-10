@@ -4,6 +4,7 @@ import * as leetcode from '../src/leetcode';
 import { FetchUserDataRequest } from './types';
 import apicache from 'apicache';
 import axios from 'axios';
+import path from 'path';
 import {
   userContestRankingInfoQuery,
   userProfileUserQuestionProgressV2Query,
@@ -18,8 +19,11 @@ const app = express();
 let cache = apicache.middleware;
 const API_URL = process.env.LEETCODE_API_URL || 'https://leetcode.com/graphql';
 
+console.log('🔄 Server is running with hot-reloading enabled');
+
 app.use(cache('5 minutes'));
 app.use(cors()); //enable all CORS request
+app.use(express.static(path.join(__dirname, '../template')));
 
 app.use((req: express.Request, _res: Response, next: NextFunction) => {
   console.log('Requested URL:', req.originalUrl);
@@ -45,27 +49,7 @@ async function queryLeetCodeAPI(query: string, variables: any) {
 }
 
 app.get('/', (_req, res) => {
-  res.json({
-    logo: [
-    "██╗     ███████╗███████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗        ███████╗████████╗ █████╗ ████████╗███████╗",
-    "██║     ██╔════╝██╔════╝╚══██╔══╝██╔════╝██╔═══██╗██╔══██╗██╔════╝        ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝",
-    "██║     █████╗  █████╗     ██║   ██║     ██║   ██║██║  ██║█████╗          ███████╗   ██║   ███████║   ██║   ███████╗",
-    "██║     ██╔══╝  ██╔══╝     ██║   ██║     ██║   ██║██║  ██║██╔══╝          ╚════██║   ██║   ██╔══██║   ██║   ╚════██║",
-    "███████╗███████╗███████╗   ██║   ╚██████╗╚██████╔╝██████╔╝███████╗        ███████║   ██║   ██║  ██║   ██║   ███████║",
-    "╚══════╝╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝        ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝"],
-    message: 'Welcome to LeetCode API',
-    availableEndpoints: [
-      '/:username',
-      '/dailyQuestion',
-      '/skillStats/:username',
-      '/userProfile/:username',
-      '/userProfileCalendar',
-      '/userProfileUserQuestionProgressV2/:userSlug',
-      '/userContestRankingInfo/:username',
-      '/officialSolution',
-      '/allData/:username'
-    ],
-  });
+  res.sendFile(path.join(__dirname, '../template/base.html'));
 });
 
 app.get('/officialSolution', async (req, res) => {
